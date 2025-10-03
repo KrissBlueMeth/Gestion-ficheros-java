@@ -51,13 +51,9 @@ public class Pedido implements Serializable {
         this.cantidad = cantidad;
     }
 
+    //    Es necesario sobreescribir para poder escribir los objetos en formato CSV
     @Override
     public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", clienteId=" + clienteId +
-                ", producto='" + producto + '\'' +
-                ", cantidad=" + cantidad +
-                '}';
+        return String.format("%d,%d,%s,%d\n", id, clienteId, producto, cantidad);
     }
 }

@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
@@ -40,13 +43,10 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    //    Es necesario sobreescribir para poder escribir los objetos en formato CSV
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return String.format("%d,%s,%s\n", id, nombre, email);
     }
 
 
