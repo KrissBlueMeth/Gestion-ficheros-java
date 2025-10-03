@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Ejecucion {
@@ -21,6 +18,7 @@ public class Ejecucion {
 
       //  exportarCliente("src/resources/escritura_cliente.csv", listaClientes);
        // exportarPedido("src/resources/escritura_pedido.csv", listaPedidos);
+        escribirObjeto("src/resources/objetos.dat", listaClientes);
 
 
 //
@@ -32,7 +30,7 @@ public class Ejecucion {
         PrintWriter printWriter = null;
 
         try {
-            printWriter = new PrintWriter(new FileWriter(file, true));
+            printWriter = new PrintWriter(new FileWriter(file, true));//con true cada vez que "piso", anexo
             printWriter.println("id, nombre, email");
             for (Cliente cli : listaClientes) {
                 printWriter.println(cli);
@@ -55,7 +53,7 @@ public class Ejecucion {
         PrintWriter printWriter = null;
 
         try {
-            printWriter = new PrintWriter(new FileWriter(file, true));
+            printWriter = new PrintWriter(new FileWriter(file, true)); //con true cada vez que "piso", anexo
             printWriter.println("id, clienteId, producto, cantidad");
             for(Pedido ped : listaPedidos) {
                 printWriter.println(ped);
@@ -69,4 +67,42 @@ public class Ejecucion {
 
 
     }
+
+    //serializacion: flujo de objetos -> dat guarda el OBJETO
+    //Con la <T> que es el genérico, adapto el metodo para usarlo con cualquier clase
+
+    public static <T> void escribirObjeto(String path, ArrayList<T> listaObjetos){
+//        ESTA ES LA OTRA MANERA DE ESCRIBIRLO, CON EL FLUJO EN LA MISMA LINEA
+//        File file = new File(path);
+//        ObjectOutputStream oos = null;
+//
+//        try {
+//            oos = new ObjectOutputStream(new FileOutputStream(file));
+
+        File file = new File(path);
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+
+        try {
+            fos = new FileOutputStream(file);
+            oos = new ObjectOutputStream(fos);
+
+            for (T objeto : listaObjetos){
+                oos.writeObject(objeto);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("El fichero no existe");;
+        } catch (IOException e) {
+            System.out.println("No tienes permisos de escritura");
+        }finally {
+            try {
+                oos.close();
+            } catch (IOException | NullPointerException e) {
+                System.out.println("Error en el cerrado del fichero");
+            }
+        }
+    }
+
+
 }
