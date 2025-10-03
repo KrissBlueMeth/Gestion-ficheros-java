@@ -19,20 +19,22 @@ public class Ejecucion {
         listaPedidos.add(new Pedido(44, 3, "Chaqueta marron", 3));
         listaPedidos.add(new Pedido(55, 3, "Pañuelo", 1));
 
-        exportarCliente("src/resources/escritura_cliente.csv", listaClientes);
+      //  exportarCliente("src/resources/escritura_cliente.csv", listaClientes);
+       // exportarPedido("src/resources/escritura_pedido.csv", listaPedidos);
+
 
 //
     }
 
 
-    public static void exportarCliente(String path, ArrayList<Cliente> listaClientes){
+    public static void exportarCliente(String path, ArrayList<Cliente> listaClientes) {
         File file = new File(path);
-        PrintWriter printWriter= null;
+        PrintWriter printWriter = null;
 
         try {
             printWriter = new PrintWriter(new FileWriter(file, true));
             printWriter.println("id, nombre, email");
-            for (Cliente cli: listaClientes){
+            for (Cliente cli : listaClientes) {
                 printWriter.println(cli);
             }
 
@@ -41,11 +43,29 @@ public class Ejecucion {
         } finally {
             try {
                 printWriter.close();
-            }catch(NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("Error en el cerrado");
             }
         }
 
+    }
+
+    public static void exportarPedido(String path, ArrayList<Pedido> listaPedidos){
+        File file = new File(path);
+        PrintWriter printWriter = null;
+
+        try {
+            printWriter = new PrintWriter(new FileWriter(file, true));
+            printWriter.println("id, clienteId, producto, cantidad");
+            for(Pedido ped : listaPedidos) {
+                printWriter.println(ped);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            assert printWriter != null;
+            printWriter.close();
+        }
 
 
     }
