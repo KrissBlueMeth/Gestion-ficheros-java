@@ -1,0 +1,22 @@
+id, clienteId, producto, cantidad
+11,1,Camiseta negra,2
+
+22,2,Vaquero azul,5
+
+33,2,Zapatos deportivos,2
+
+44,3,Chaqueta marron,3
+
+55,3,Pañuelo,1
+
+id, clienteId, producto, cantidad
+11,1,Camiseta negra,2
+
+22,2,Vaquero azul,5
+
+33,2,Zapatos deportivos,2
+
+44,3,Chaqueta marron,3
+
+55,3,Pañuelo,1
+
