@@ -23,7 +23,6 @@ public class Ejecucion {
         // leerObjeto("src/resources/objetos.dat", Cliente.class);
 
 
-
         //PRUEBA DE LOS METODOS DE REPASO
 
         // importarSiExiste("src/resources/noexiste.dat");
@@ -233,7 +232,6 @@ public class Ejecucion {
     }
 
 
-
 //    Si el programa cierra, SI EXISTE EL FICHERO, anexa informacion
 //    Si el programa cierra, SI NO EXISTE EL FICHERO, lo crea y guarda informacion
 
@@ -249,7 +247,7 @@ public class Ejecucion {
             ArrayList<T> datosExistentes = importarSiExiste(path);
 
             if (datosExistentes != null) {
-                datosExistentes.addAll(datos);
+                datosExistentes.addAll(datos); //addAll() es un metodo de ArrayList que añade TODOS los elementos de una colección a otra colección.
             } else {
                 datosExistentes = new ArrayList<>(datos);
             }
@@ -260,12 +258,11 @@ public class Ejecucion {
         } else {
             System.out.println("Archivo no existe - Creando... Guardando...");
             escribirObjeto(path, datos);
-            System.out.println("Archivo creado con " +datos.size() + " objetos");
+            System.out.println("Archivo creado con " + datos.size() + " objetos");
         }
 
 
     }
-
 
 
 }
