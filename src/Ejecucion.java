@@ -16,12 +16,12 @@ public class Ejecucion {
         listaPedidos.add(new Pedido(44, 3, "Chaqueta marron", 3));
         listaPedidos.add(new Pedido(55, 3, "Pañuelo", 1));
 
-      //  exportarCliente("src/resources/escritura_cliente.csv", listaClientes);
-       // exportarPedido("src/resources/escritura_pedido.csv", listaPedidos);
-        escribirObjeto("src/resources/objetos.dat", listaClientes);
+      // exportarCliente("src/resources/escritura_cliente.csv", listaClientes);
+      // exportarPedido("src/resources/escritura_pedido.csv", listaPedidos);
+      // escribirObjeto("src/resources/objetos.dat", listaClientes);
+       leerObjeto("src/resources/objetos.dat", Cliente.class);
 
 
-//
     }
 
 
@@ -103,6 +103,59 @@ public class Ejecucion {
             }
         }
     }
+
+    public static <T> ArrayList<T> leerObjeto(String path, Class<T> clase){
+        ArrayList<T> listaObjetos = new ArrayList<T>();
+        File file = new File(path);
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+
+        System.out.println("Leyendo archivo: " + path);
+        System.out.println("Archivo existe: " + file.exists());
+        System.out.println("Tamaño del archivo: " + file.length() + " bytes");
+
+        try {
+            fis = new FileInputStream(file);
+            ois = new ObjectInputStream(fis);
+            int contador = 0;
+
+            while (true) {
+                try {
+                    T objeto = (T) ois.readObject();
+                    listaObjetos.add(objeto);
+                    contador++;
+                    System.out.println("Objeto " + contador + " leído: " + objeto.toString());
+                } catch (EOFException e){
+                    System.out.println("Fin del archivo. Total objetos leídos: " + contador);
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error, el fichero no se encuentra");
+        } catch (IOException e) {
+            System.out.println("No tienes permisos de lectura");
+        } catch (ClassNotFoundException | ClassCastException e) {
+            System.out.println("Error en la clase de lectura: " + e.getMessage());
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (IOException | NullPointerException e) {
+                System.out.println("Error en el cerrado");
+            }
+        }
+
+        System.out.println("Total objetos en lista: " + listaObjetos.size());
+        return listaObjetos;
+    }
+
+
+//    EJERCICIOS DE REPASO PROPUESTOS QUE NO SERÁN EVALUABLES EN LA PRÁCTICA
+
+//    En el programa, SOLO SI EL FICHERO EXISTE, importar en un arraylist todos los usuarios del mismo
+//    Si el programa cierra, SI EXISTE EL FICHERO, anexa informacion
+//    Si el programa cierra, SI NO EXISTE EL FICHERO, lo crea y guarda informacion
 
 
 }
